@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kariboka — Parintins</title>
+  <link rel="stylesheet" href="index.css"/>
+
+</head>
+<body>
+
+  <!-- FOLHAS DECORATIVAS -->
+  <div class="folhas-bg" aria-hidden="true">
+    <div class="folha f1"></div>
+    <div class="folha f2"></div>
+    <div class="folha f3"></div>
+    <div class="folha f4"></div>
+    <div class="folha f5"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">🌿 Kariboka</div>
+    <ul class="nav-links">
+      <li><a href="#status">Horários</a></li>
+      <li><a href="#shows">Shows</a></li>
+      <li><a href="#cardapio">Cardápio</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">✦ Parintins · Amazonas ✦</div>
+      <h1 class="hero-titulo">Kariboka</h1>
+      <p class="hero-sub">Sabores da Floresta, Alma do Festival</p>
+      <div id="statusBadge" class="hero-status">...</div>
+      <a href="#cardapio" class="hero-btn">Ver Cardápio do Dia</a>
+    </div>
+    <div class="hero-scroll">↓</div>
+  </section>
+
+  <!-- STATUS / HORÁRIOS -->
+  <section id="status" class="sec-status">
+    <div class="container">
+      <div class="status-bloco">
+        <div class="status-icone" id="statusIcone">🌙</div>
+        <div class="status-texto">
+          <h2 id="statusTitulo">Verificando...</h2>
+          <p id="statusDesc">Aguarde um momento</p>
+        </div>
+      </div>
+      <div class="horarios-linha">
+        <div class="horario-item">
+          <span class="horario-dia">Seg – Qui</span>
+          <span class="horario-sep">✦</span>
+          <span class="horario-hora">18h às 00h</span>
+        </div>
+        <div class="horario-item destaque">
+          <span class="horario-dia">Sex – Sáb</span>
+          <span class="horario-sep">✦</span>
+          <span class="horario-hora">18h às 02h</span>
+        </div>
+        <div class="horario-item">
+          <span class="horario-dia">Domingo</span>
+          <span class="horario-sep">✦</span>
+          <span class="horario-hora">12h às 22h</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- SHOWS -->
+<section id="shows" class="sec-shows">
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">Agenda</span>
+      <h2 class="sec-titulo">Shows & Eventos</h2>
+      <p class="sec-desc">Noites de música ao vivo no coração de Parintins</p>
+    </div>
+
+    <!-- IMAGEM DO SHOW -->
+    <div class="show-img-wrap">
+      <img src="img/img sho.jpeg" alt="show ao vivo"/>
+      <div class="show-img-overlay"></div>
+      <div class="show-img-texto">
+        <span class="show-img-tag">✦ Ao Vivo</span>
+        <p class="show-img-desc">Música, cultura e a energia de Parintins</p>
+      </div>
+    </div>
+
+    <div id="showsLista" class="shows-wrapper"></div>
+  </div>
+</section>
+
+  <!-- DIVISOR ORGÂNICO -->
+  <div class="divisor" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,50 C200,0 400,100 600,50 C800,0 1000,100 1200,50 C1300,25 1380,60 1440,50 L1440,100 L0,100Z" fill="var(--verde-fundo)"/>
+    </svg>
+  </div>
+
+  <!-- CARDÁPIO -->
+<section id="cardapio" class="sec-cardapio">
+  <div class="container">
+    <div class="sec-header claro">
+      <span class="sec-tag gold">Hoje</span>
+      <h2 class="sec-titulo claro">Cardápio do Dia</h2>
+      <p class="sec-desc claro">Ingredientes frescos da Amazônia na sua mesa</p>
+    </div>
+
+    <!-- PRATOS DO DIA -->
+    <div class="pratos-grid">
+
+      <div class="kb-prato-card">
+        <div class="kb-prato-img-wrap">
+          <img class="pratoa" src="img/WhatsApp Image 2026-05-08 at 06.12.16.jpeg" alt="prato do dia"/>
+          <div class="kb-prato-overlay"></div>
+          <span class="kb-prato-badge">✦ Hoje</span>
+        </div>
+        <div class="kb-prato-info">
+          <div class="kb-prato-nome">Prato do Dia</div>
+          <div class="kb-prato-desc">Sabores frescos da Amazônia</div>
+          <div class="kb-prato-linha">
+            <span class="kb-prato-cat">Prato Principal</span>
+            <span class="kb-prato-preco">R$ 35,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kb-prato-card">
+        <div class="kb-prato-img-wrap">
+          <img class="pratob" src="img/WhatsApp Image 2026-05-08 at 06.12.25.jpeg" alt="prato"/>
+          <div class="kb-prato-overlay"></div>
+          <span class="kb-prato-badge">✦ Hoje</span>
+        </div>
+        <div class="kb-prato-info">
+          <div class="kb-prato-nome">Prato Especial</div>
+          <div class="kb-prato-desc">Com ingredientes regionais selecionados</div>
+          <div class="kb-prato-linha">
+            <span class="kb-prato-cat">Especial</span>
+            <span class="kb-prato-preco">R$ 42,00</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="cardapioLista" class="cardapio-wrapper"></div>
+  </div>
+</section>
+  <!-- DIVISOR INVERTIDO -->
+  <div class="divisor inv" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,50 C200,100 400,0 600,50 C800,100 1000,0 1200,50 C1300,75 1380,40 1440,50 L1440,0 L0,0Z" fill="var(--verde-fundo)"/>
+    </svg>
+  </div>
+
+  <!-- CONTATO -->
+  <section id="contato" class="sec-contato">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-tag">Fale conosco</span>
+        <h2 class="sec-titulo">Contato</h2>
+      </div>
+      <div class="contato-grid">
+        <div class="contato-infos">
+          <div class="contato-card">
+  <span class="cc-icon">📍</span>
+  <div>
+    <strong>Endereço</strong>
+    <p>Rua das Palmeiras, 123 — Parintins, AM</p>
+  </div>
+</div>
+
+<!-- MAPA -->
+<div class="mapa-wrap">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.5961644204717!2d-56.75517362464705!3d-2.636128097341673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9263833083f32f43%3A0x628a1206d834dd1b!2sEstr.%20Odovaldo%20Novo%2C%20523%20-%20Djard%20Vieira%2C%20Parintins%20-%20AM%2C%2069152-470!5e0!3m2!1spt-BR!2sbr!4v1778237001053!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  
+</div>
+            <div class="contato-card">
+              <strong>Telefone / WhatsApp</strong>
+              <p>(92) 99999-0000</p>
+            </div>
+          </div>
+          <div class="contato-card">
+            <span class="cc-icon">✉️</span>
+            <div>
+              <strong>E-mail</strong>
+              <p>kariboka@email.com</p>
+            </div>
+          </div>
+          <div class="contato-card">
+            <span class="cc-icon">📸</span>
+            <div>
+              <strong>Instagram</strong>
+              <p>@kariboka_parintins</p>
+            </div>
+          </div>
+        </div>
+        <form class="contato-form" onsubmit="enviarMensagem(event)">
+          <h3>Envie uma mensagem</h3>
+          <div class="campo">
+            <input type="text" id="msgNome" placeholder=" " required/>
+            <label>Seu nome</label>
+          </div>
+          <div class="campo">
+            <input type="email" id="msgEmail" placeholder=" " required/>
+            <label>Seu e-mail</label>
+          </div>
+          <div class="campo campo-area">
+            <textarea id="msgTexto" placeholder=" " rows="4" required></textarea>
+            <label>Sua mensagem</label>
+          </div>
+          <button type="submit" class="form-btn">Enviar Mensagem ✦</button>
+          <p id="msgFeedback" class="feedback"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">🌿 Kariboka</div>
+    <p class="footer-local">Parintins · Amazonas · Brasil</p>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">© 2025 Kariboka Restaurante — Todos os direitos reservados</p>
+  </footer>
+
+  
+</body>
+ <script src="jv.js"></script>
+</html>

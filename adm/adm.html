@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kariboka — Admin TI</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ve:#0d2b1a;--vf:#122e1e;--vm:#1a4d2e;--vv:#2d7a4f;--vc:#4caf7d;--vb:#6fcf97;
+  --do:#c9a84c;--dc:#f0c96e;--cr:#f5f0e8;--ce:#e8ddc8;--tc:#d4e8d4;--br:#ffffff;
+}
+html,body{min-height:100vh;background:var(--vf);color:var(--cr);font-family:'Crimson Pro',Georgia,serif;overflow-x:hidden}
+body{display:flex;flex-direction:column}
+nav{background:rgba(13,43,26,0.97);border-bottom:1px solid rgba(201,168,76,0.3);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-family:'Cinzel Decorative',cursive;color:var(--do);letter-spacing:3px;font-size:1.2rem}
+.logo span{color:var(--vb);font-size:0.7rem;display:block;letter-spacing:6px;text-transform:uppercase;margin-top:2px}
+.nav-badge{background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:var(--dc);padding:5px 16px;border-radius:2px;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase}
+.tabs{display:flex;background:rgba(13,43,26,0.6);border-bottom:1px solid rgba(201,168,76,0.15);padding:0 32px}
+.tab{padding:14px 28px;font-family:'Crimson Pro',serif;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;color:rgba(212,232,212,0.5);border-bottom:2px solid transparent;transition:all 0.3s;background:none;border-left:none;border-right:none;border-top:none}
+.tab:hover{color:var(--tc)}
+.tab.active{color:var(--do);border-bottom-color:var(--do)}
+main{flex:1;padding:32px}
+.panel{display:none}
+.panel.active{display:block}
+.sec-title{font-family:'Cinzel Decorative',cursive;font-size:1.1rem;color:var(--cr);letter-spacing:2px;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;gap:12px}
+.sec-title::before{content:'✦';color:var(--do);font-size:0.8rem}
+.form-card{background:rgba(13,43,26,0.7);border:1px solid rgba(201,168,76,0.2);border-radius:3px;padding:28px 32px;margin-bottom:32px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-grid.full{grid-template-columns:1fr}
+.campo-admin{display:flex;flex-direction:column;gap:6px}
+.campo-admin label{font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--do);opacity:0.8}
+.campo-admin input,.campo-admin select,.campo-admin textarea{background:rgba(26,77,46,0.4);border:1px solid rgba(76,175,125,0.25);border-radius:2px;padding:10px 14px;color:var(--cr);font-family:'Crimson Pro',serif;font-size:1rem;outline:none;transition:border-color 0.3s;resize:none}
+.campo-admin input:focus,.campo-admin select:focus,.campo-admin textarea:focus{border-color:var(--do)}
+.campo-admin select option{background:var(--ve);color:var(--cr)}
+.btn-add{margin-top:8px;padding:12px 32px;background:transparent;border:1px solid var(--do);color:var(--dc);font-family:'Crimson Pro',serif;font-size:0.9rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.3s;position:relative;overflow:hidden}
+.btn-add::before{content:'';position:absolute;inset:0;background:var(--do);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;z-index:0}
+.btn-add:hover{color:var(--ve)}
+.btn-add:hover::before{transform:scaleX(1)}
+.btn-add span{position:relative;z-index:1}
+.lista-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.item-card{background:rgba(10,31,18,0.8);border:1px solid rgba(201,168,76,0.18);border-radius:3px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s}
+.item-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.4)}
+.item-img{width:100%;height:160px;object-fit:cover;display:block;filter:brightness(0.85)}
+.item-img-placeholder{width:100%;height:160px;background:rgba(26,77,46,0.3);display:flex;align-items:center;justify-content:center;color:rgba(212,232,212,0.2);font-size:2rem}
+.item-body{padding:16px 18px}
+.item-cat{font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--vc);margin-bottom:6px}
+.item-nome{font-family:'Cinzel Decorative',cursive;font-size:0.95rem;color:var(--cr);margin-bottom:6px;line-height:1.3}
+.item-desc{font-style:italic;font-size:0.85rem;color:rgba(212,232,212,0.5);margin-bottom:12px;line-height:1.5}
+.item-footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,168,76,0.12);padding-top:12px}
+.item-preco{font-family:'Cinzel Decorative',cursive;font-size:1rem;color:var(--dc)}
+.item-acoes{display:flex;gap:8px}
+.btn-edit,.btn-del{padding:5px 12px;font-family:'Crimson Pro',serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.25s}
+.btn-edit{background:rgba(26,77,46,0.5);border:1px solid rgba(76,175,125,0.3);color:var(--vb)}
+.btn-edit:hover{background:rgba(76,175,125,0.2);border-color:var(--vc)}
+.btn-del{background:rgba(180,60,60,0.15);border:1px solid rgba(180,60,60,0.3);color:#ff9999}
+.btn-del:hover{background:rgba(180,60,60,0.3)}
+.vazio{text-align:center;font-style:italic;color:rgba(212,232,212,0.3);padding:40px;border:1px dashed rgba(201,168,76,0.2);border-radius:3px;grid-column:1/-1}
+.overlay{display:none;position:fixed;inset:0;background:rgba(6,15,9,0.85);z-index:200;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:var(--ve);border:1px solid rgba(201,168,76,0.3);border-radius:3px;padding:32px;width:90%;max-width:520px;max-height:90vh;overflow-y:auto}
+.modal h3{font-family:'Cinzel Decorative',cursive;color:var(--cr);font-size:1.1rem;letter-spacing:2px;margin-bottom:24px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,0.2)}
+.modal-acoes{display:flex;gap:12px;margin-top:20px;justify-content:flex-end}
+.btn-cancel{padding:10px 24px;background:transparent;border:1px solid rgba(212,232,212,0.2);color:rgba(212,232,212,0.5);font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.3s}
+.btn-cancel:hover{border-color:rgba(212,232,212,0.4);color:var(--tc)}
+.btn-save{padding:10px 28px;background:transparent;border:1px solid var(--do);color:var(--dc);font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.3s}
+.btn-save:hover{background:var(--do);color:var(--ve)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:32px}
+.stat-card{background:rgba(13,43,26,0.7);border:1px solid rgba(201,168,76,0.15);border-radius:3px;padding:20px 24px}
+.stat-num{font-family:'Cinzel Decorative',cursive;font-size:1.8rem;color:var(--do);display:block;margin-bottom:4px}
+.stat-label{font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;color:rgba(212,232,212,0.5)}
+.img-preview{width:100%;height:120px;object-fit:cover;border-radius:2px;margin-top:8px;display:none;border:1px solid rgba(201,168,76,0.2)}
+.img-preview.show{display:block}
+.feedback-msg{font-style:italic;font-size:0.9rem;min-height:20px;margin-top:10px;color:var(--vb)}
+.feedback-msg.erro{color:#ff9999}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">KARIBOKA <span>painel administrativo</span></div>
+  <div class="nav-badge">✦ Modo T.I.</div>
+</nav>
+<div class="tabs">
+  <button class="tab active" onclick="trocarTab('dashboard',this)">Dashboard</button>
+  <button class="tab" onclick="trocarTab('comidas',this)">Comidas</button>
+  <button class="tab" onclick="trocarTab('bebidas',this)">Bebidas</button>
+</div>
+<main>
+  <div id="panel-dashboard" class="panel active">
+    <div class="sec-title">Visão Geral</div>
+    <div class="stats-grid">
+      <div class="stat-card"><span class="stat-num" id="stat-comidas">0</span><span class="stat-label">Pratos</span></div>
+      <div class="stat-card"><span class="stat-num" id="stat-bebidas">0</span><span class="stat-label">Bebidas</span></div>
+      <div class="stat-card"><span class="stat-num" id="stat-total">0</span><span class="stat-label">Itens Total</span></div>
+    </div>
+    <div class="form-card" style="text-align:center;padding:40px">
+      <p style="font-style:italic;color:rgba(212,232,212,0.5);margin-bottom:16px">Use as abas acima para gerenciar o cardápio</p>
+      <p style="font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--do);opacity:0.7">Alterações aparecem automaticamente no sistema do cliente</p>
+    </div>
+  </div>
+  <div id="panel-comidas" class="panel">
+    <div class="sec-title">Gerenciar Comidas</div>
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="campo-admin"><label>Nome do Prato</label><input type="text" id="c-nome" placeholder="Ex: Tambaqui Assado"></div>
+        <div class="campo-admin"><label>Categoria</label>
+          <select id="c-cat">
+            <option value="Prato Principal">Prato Principal</option>
+            <option value="Entrada">Entrada</option>
+            <option value="Sobremesa">Sobremesa</option>
+            <option value="Petisco">Petisco</option>
+            <option value="Especial do Dia">Especial do Dia</option>
+          </select>
+        </div>
+        <div class="campo-admin"><label>Preço (R$)</label><input type="number" id="c-preco" placeholder="0.00" step="0.01" min="0"></div>
+        <div class="campo-admin"><label>Foto (URL)</label><input type="text" id="c-img" placeholder="https://..." oninput="previewImg('c-img','c-prev')"><img id="c-prev" class="img-preview"></div>
+        <div class="campo-admin" style="grid-column:1/-1"><label>Descrição</label><textarea id="c-desc" rows="2" placeholder="Ingredientes, preparo, sabor..."></textarea></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:6px">
+        <button class="btn-add" onclick="adicionarItem('comidas')"><span>✦ Adicionar Prato</span></button>
+        <div class="feedback-msg" id="fb-comidas"></div>
+      </div>
+    </div>
+    <div class="lista-items" id="lista-comidas"></div>
+  </div>
+  <div id="panel-bebidas" class="panel">
+    <div class="sec-title">Gerenciar Bebidas</div>
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="campo-admin"><label>Nome da Bebida</label><input type="text" id="b-nome" placeholder="Ex: Suco de Cupuaçu"></div>
+        <div class="campo-admin"><label>Categoria</label>
+          <select id="b-cat">
+            <option value="Suco Natural">Suco Natural</option>
+            <option value="Drink">Drink</option>
+            <option value="Cerveja">Cerveja</option>
+            <option value="Vinho">Vinho</option>
+            <option value="Refrigerante">Refrigerante</option>
+            <option value="Água">Água</option>
+            <option value="Caipirinha">Caipirinha</option>
+            <option value="Coquetel">Coquetel</option>
+          </select>
+        </div>
+        <div class="campo-admin"><label>Preço (R$)</label><input type="number" id="b-preco" placeholder="0.00" step="0.01" min="0"></div>
+        <div class="campo-admin"><label>Foto (URL)</label><input type="text" id="b-img" placeholder="https://..." oninput="previewImg('b-img','b-prev')"><img id="b-prev" class="img-preview"></div>
+        <div class="campo-admin" style="grid-column:1/-1"><label>Descrição</label><textarea id="b-desc" rows="2" placeholder="Ingredientes, volume, sabor..."></textarea></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:6px">
+        <button class="btn-add" onclick="adicionarItem('bebidas')"><span>✦ Adicionar Bebida</span></button>
+        <div class="feedback-msg" id="fb-bebidas"></div>
+      </div>
+    </div>
+    <div class="lista-items" id="lista-bebidas"></div>
+  </div>
+</main>
+<div class="overlay" id="overlay" onclick="fecharModal(event)">
+  <div class="modal">
+    <h3>Editar Item</h3>
+    <input type="hidden" id="edit-tipo">
+    <input type="hidden" id="edit-id">
+    <div class="form-grid" style="gap:14px">
+      <div class="campo-admin"><label>Nome</label><input type="text" id="edit-nome"></div>
+      <div class="campo-admin"><label>Categoria</label><input type="text" id="edit-cat"></div>
+      <div class="campo-admin"><label>Preço (R$)</label><input type="number" id="edit-preco" step="0.01"></div>
+      <div class="campo-admin"><label>Foto (URL)</label><input type="text" id="edit-img" oninput="previewImg('edit-img','edit-prev')"></div>
+      <div class="campo-admin" style="grid-column:1/-1"><label>Descrição</label><textarea id="edit-desc" rows="3"></textarea></div>
+      <div style="grid-column:1/-1"><img id="edit-prev" class="img-preview"></div>
+    </div>
+    <div class="modal-acoes">
+      <button class="btn-cancel" onclick="document.getElementById('overlay').classList.remove('show')">Cancelar</button>
+      <button class="btn-save" onclick="salvarEdicao()">✦ Salvar</button>
+    </div>
+  </div>
+</div>
+<script>
+function getCardapio(tipo){return JSON.parse(localStorage.getItem('kariboka_'+tipo)||'[]')}
+function setCardapio(tipo,arr){localStorage.setItem('kariboka_'+tipo,JSON.stringify(arr))}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
+function previewImg(inputId,imgId){
+  const url=document.getElementById(inputId).value.trim();
+  const img=document.getElementById(imgId);
+  if(url){img.src=url;img.classList.add('show')}else{img.classList.remove('show')}
+}
+function trocarTab(nome,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-'+nome).classList.add('active');
+  if(nome!=='dashboard'){renderLista(nome)}else{atualizarStats()}
+}
+function adicionarItem(tipo){
+  const p=tipo==='comidas'?'c':'b';
+  const nome=document.getElementById(p+'-nome').value.trim();
+  const cat=document.getElementById(p+'-cat').value;
+  const preco=parseFloat(document.getElementById(p+'-preco').value);
+  const img=document.getElementById(p+'-img').value.trim();
+  const desc=document.getElementById(p+'-desc').value.trim();
+  const fb=document.getElementById('fb-'+tipo);
+  if(!nome||isNaN(preco)||preco<=0){
+    fb.textContent='Preencha nome e preço.';fb.className='feedback-msg erro';
+    setTimeout(()=>fb.textContent='',3000);return;
+  }
+  const arr=getCardapio(tipo);
+  arr.push({id:uid(),nome,cat,preco,img,desc});
+  setCardapio(tipo,arr);
+  document.getElementById(p+'-nome').value='';
+  document.getElementById(p+'-preco').value='';
+  document.getElementById(p+'-img').value='';
+  document.getElementById(p+'-desc').value='';
+  document.getElementById(p+'-prev').classList.remove('show');
+  fb.textContent='✦ Item adicionado com sucesso!';fb.className='feedback-msg';
+  setTimeout(()=>fb.textContent='',3000);
+  renderLista(tipo);atualizarStats();
+}
+function renderLista(tipo){
+  const arr=getCardapio(tipo);
+  const el=document.getElementById('lista-'+tipo);
+  el.innerHTML='';
+  if(!arr.length){el.innerHTML='<div class="vazio">Nenhum item cadastrado ainda.</div>';return;}
+  arr.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='item-card';
+    div.innerHTML=`
+      ${item.img?`<img class="item-img" src="${item.img}" alt="${item.nome}" onerror="this.style.display='none'">`:`<div class="item-img-placeholder">🍃</div>`}
+      <div class="item-body">
+        <div class="item-cat">${item.cat}</div>
+        <div class="item-nome">${item.nome}</div>
+        <div class="item-desc">${item.desc||'Sem descrição'}</div>
+        <div class="item-footer">
+          <div class="item-preco">R$ ${parseFloat(item.preco).toFixed(2)}</div>
+          <div class="item-acoes">
+            <button class="btn-edit" onclick="abrirModal('${tipo}','${item.id}')">Editar</button>
+            <button class="btn-del" onclick="deletarItem('${tipo}','${item.id}')">Excluir</button>
+          </div>
+        </div>
+      </div>`;
+    el.appendChild(div);
+  });
+}
+function abrirModal(tipo,id){
+  const arr=getCardapio(tipo);
+  const item=arr.find(i=>i.id===id);
+  if(!item)return;
+  document.getElementById('edit-tipo').value=tipo;
+  document.getElementById('edit-id').value=id;
+  document.getElementById('edit-nome').value=item.nome;
+  document.getElementById('edit-cat').value=item.cat;
+  document.getElementById('edit-preco').value=item.preco;
+  document.getElementById('edit-img').value=item.img||'';
+  document.getElementById('edit-desc').value=item.desc||'';
+  const prev=document.getElementById('edit-prev');
+  if(item.img){prev.src=item.img;prev.classList.add('show')}else{prev.classList.remove('show')}
+  document.getElementById('overlay').classList.add('show');
+}
+function fecharModal(e){if(e.target===document.getElementById('overlay'))document.getElementById('overlay').classList.remove('show')}
+function salvarEdicao(){
+  const tipo=document.getElementById('edit-tipo').value;
+  const id=document.getElementById('edit-id').value;
+  const arr=getCardapio(tipo);
+  const idx=arr.findIndex(i=>i.id===id);
+  if(idx===-1)return;
+  arr[idx].nome=document.getElementById('edit-nome').value.trim();
+  arr[idx].cat=document.getElementById('edit-cat').value.trim();
+  arr[idx].preco=parseFloat(document.getElementById('edit-preco').value);
+  arr[idx].img=document.getElementById('edit-img').value.trim();
+  arr[idx].desc=document.getElementById('edit-desc').value.trim();
+  setCardapio(tipo,arr);
+  document.getElementById('overlay').classList.remove('show');
+  renderLista(tipo);atualizarStats();
+}
+function deletarItem(tipo,id){
+  if(!confirm('Excluir este item?'))return;
+  const arr=getCardapio(tipo).filter(i=>i.id!==id);
+  setCardapio(tipo,arr);
+  renderLista(tipo);atualizarStats();
+}
+function atualizarStats(){
+  const c=getCardapio('comidas').length;
+  const b=getCardapio('bebidas').length;
+  document.getElementById('stat-comidas').textContent=c;
+  document.getElementById('stat-bebidas').textContent=b;
+  document.getElementById('stat-total').textContent=c+b;
+}
+atualizarStats();
+</script>
+</body>
+</html>
+ 
